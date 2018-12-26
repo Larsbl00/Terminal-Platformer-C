@@ -19,8 +19,10 @@ void test_render(void* arg)
 
 int main(int argc, char const *argv[])
 {
+    //Create a window with the current size of the temrinal
     struct winsize terminal;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
+    render_window_t window = render_window_create(terminal.ws_col, terminal.ws_row);
 
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
 
@@ -38,10 +40,6 @@ int main(int argc, char const *argv[])
     printf("Add result: %i\n", render_queue_add_item(&queue, &test, NULL));
 
     render_queue_render(&queue);
-
-    render_window_t window = render_window_create(terminal.ws_col, terminal.ws_row);
-
-
 
     render_window_render(&window);
 
