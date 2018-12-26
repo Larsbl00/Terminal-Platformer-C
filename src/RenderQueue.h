@@ -52,6 +52,15 @@ void render_queue_destroy(render_queue_t* render_queue);
 int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_render, void* parameter);
 
 /**
+ * @brief 
+ * 
+ * @param render_queue 
+ * @param item 
+ * @return ssize_t If item is present the function will return its index, otherwise it'll return -1 
+ */
+ssize_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item);
+
+/**
  * @brief Removes an item from the render queue
  * 
  * @param render_queue 

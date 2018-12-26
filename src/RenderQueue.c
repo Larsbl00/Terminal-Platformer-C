@@ -35,3 +35,20 @@ void render_queue_destroy(render_queue_t* render_queue)
     //Only the queue is freed, not the pointers to the items.
     free(render_queue->queue);
 }
+
+int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_render, void* parameter)
+{
+    //Early exit if renderer or queue are NULL, parameter may be NULL and it's responsibillity lies in the handler function
+    if (render_queue == NULL || item_to_render == NULL) return -1;
+
+    //Early exit if there is no more room left for the item
+    if ((render_queue->queue_current_size + 1 >= render_queue->queue_max_size - 1)) return -1;
+
+    
+}
+
+ssize_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item)
+{
+    //Early exit if the pointers are NULL references
+    if (render_queue == NULL || item == NULL) return -1;
+}
