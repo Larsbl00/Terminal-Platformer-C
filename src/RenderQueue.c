@@ -71,6 +71,27 @@ int8_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* it
         }
     }
 
-    //Item not located, return error
+    //Item not located
     return -1;
+}
+
+int8_t render_queue_remove_item(render_queue_t* render_queue, renderer_t* item_to_remove)
+{
+    //Early exit if there are NULL references
+    if (render_queue == NULL || item_to_remove == NULL) return -1;
+
+    size_t index;
+
+    //Check if item exists in list, if it does not exit the function
+    if (render_queue_is_item_present(render_queue, item_to_remove, &index) < 0) return -1;
+
+    for (size_t i = index; i < render_queue->queue_current_size; i++)
+    {
+        render_queue->queue[i] = render_queue->queue[i + 1];
+    }
+
+    //Decrement the size, due to an item being removed
+    render_queue->queue_current_size--;
+
+    return 0;
 }

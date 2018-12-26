@@ -61,6 +61,7 @@ int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_r
  * @return int8_t If the item is present the function will return 0, otherwise it'll return -1
  * 
  * @pre index maynot be NULL
+ * @post index contains the index of the first found item, if present
  */
 int8_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item, size_t* index);
 
