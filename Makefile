@@ -12,7 +12,7 @@ SOURCES = \
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
-vpath %.c $(dir $(SOURCES))
+VPATH = $(sort $(dir $(SOURCES)));
 
 #Directories
 SRC_DIR = ./src
@@ -34,7 +34,7 @@ $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 #Compile all objects from .c files
-$(OBJ_DIR)/%.o: $(dir $(SOURCES))%.c
+$(OBJ_DIR)/%.o: %.c
 	$(CC) -c $(CFLAGS) $^ -o $@
 
 #Clean up
