@@ -9,7 +9,6 @@ CFLAGS = -Wall -Werror
 SOURCES = \
 		$(SRC_DIR)/main.c \
 		$(SRC_DIR)/KeyReader.c \
-		$(SRC_DIR)/Renderer.c \
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
