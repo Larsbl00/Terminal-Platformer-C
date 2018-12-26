@@ -36,6 +36,8 @@ int main(int argc, char const *argv[])
 
     render_window_t window = render_window_create(10, 100);
 
+    render_window_flush(&window);
+
     render_window_destroy(&window);
 
     key_reader_destroy(&key_reader);

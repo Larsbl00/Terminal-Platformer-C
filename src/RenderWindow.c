@@ -45,3 +45,14 @@ void render_window_destroy(render_window_t* window)
     //Free the array holding all x-values
     free(window->buffer);
 }
+
+void render_window_flush(render_window_t* window)
+{
+    for (size_t x = 0; x < window->width; x++)
+    {
+        for (size_t y = 0; y < window->height; y++)
+        {
+            window->buffer[x][y] = 0;
+        }
+    }
+}
