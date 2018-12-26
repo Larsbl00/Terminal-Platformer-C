@@ -44,11 +44,33 @@ int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_r
     //Early exit if there is no more room left for the item
     if ((render_queue->queue_current_size + 1 >= render_queue->queue_max_size - 1)) return -1;
 
+    //Check if item is already present, escape if it is present
+    size_t index;
+    if (render_queue_is_item_present(render_queue, item_to_render, &index) >= 0) return -1;
+
+    //Add item to the current size, and auto increment it
+    render_queue->queue[render_queue->queue_current_size++] = render_queue_item_create(item_to_render, parameter);
     
+    return 0;
 }
 
-ssize_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item)
+int8_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item, size_t* index)
 {
     //Early exit if the pointers are NULL references
     if (render_queue == NULL || item == NULL) return -1;
+
+    //Go through all currently stored items
+    for (size_t i = 0; i < render_queue->queue_current_size; i++)
+    {
+        //Exit if item is located
+        if (render_queue->queue[i].renderer == item)
+        {
+            printf("Item Located at %li\n", i);
+            *index = i;
+            return 0;
+        }
+    }
+
+    //Item not located, return error
+    return -1;
 }

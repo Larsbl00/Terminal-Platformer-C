@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include "RenderQueueItem.h"
@@ -56,9 +57,12 @@ int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_r
  * 
  * @param render_queue 
  * @param item 
- * @return ssize_t If item is present the function will return its index, otherwise it'll return -1 
+ * @param index A pointer to the variable storing the located index
+ * @return int8_t If the item is present the function will return 0, otherwise it'll return -1
+ * 
+ * @pre index maynot be NULL
  */
-ssize_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item);
+int8_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* item, size_t* index);
 
 /**
  * @brief Removes an item from the render queue
