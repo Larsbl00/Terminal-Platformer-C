@@ -34,9 +34,10 @@ int main(int argc, char const *argv[])
 
     render_queue_render(&queue);
 
-    render_window_t window = render_window_create(10, 100);
+    render_window_t window = render_window_create(10, 10);
+    window.buffer[1][1] = 'P';
 
-    render_window_flush(&window);
+    render_window_render(&window);
 
     render_window_destroy(&window);
 
