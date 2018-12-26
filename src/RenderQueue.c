@@ -95,3 +95,12 @@ int8_t render_queue_remove_item(render_queue_t* render_queue, renderer_t* item_t
 
     return 0;
 }
+
+void render_queue_render(render_queue_t* render_queue)
+{
+    for (size_t i = 0; i < render_queue->queue_current_size; i++)
+    {
+        render_queue_item_t* currentItem = &render_queue->queue[i];
+        currentItem->renderer->render(currentItem->parameter);
+    }
+}

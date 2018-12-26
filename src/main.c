@@ -31,6 +31,8 @@ int main(int argc, char const *argv[])
     printf("Remove result: %i\n", render_queue_remove_item(&queue, &test));
     printf("Add result: %i\n", render_queue_add_item(&queue, &test, NULL));
 
+    render_queue_render(&queue);
+
     key_reader_destroy(&key_reader);
 
     render_queue_destroy(&queue);
