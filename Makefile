@@ -8,7 +8,7 @@ CFLAGS = -Wall -Werror
 #Files
 SOURCES = \
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir ($(SOURCES))))
 
 #Directories
 SRC_DIR = ./src
@@ -25,6 +25,9 @@ create_directories:
 	mkdir -p $(OBJ_DIR)
 
 
+
+#Compile all .c to .o files
+%.c: 
 
 #Clean up
 clean: 
