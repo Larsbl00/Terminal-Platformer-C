@@ -16,6 +16,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define RENDER_WINDOW_EMPTY_CHAR (' ')
+#define RENDER_WINDOW_NEW_LINE ('\n')
+
 typedef struct render_window
 {
     const size_t height;

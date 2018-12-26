@@ -27,7 +27,7 @@ render_window_t render_window_create(const size_t height, const size_t width)
         //Clean the allocated values
         for (size_t y = 0; y < height; y++)
         {
-            window.buffer[x][y] = '-';
+            window.buffer[x][y] = RENDER_WINDOW_EMPTY_CHAR;
         }
     }
 
@@ -52,14 +52,14 @@ void render_window_flush(render_window_t* window)
     {
         for (size_t y = 0; y < window->height; y++)
         {
-            window->buffer[x][y] = '-';
+            window->buffer[x][y] = RENDER_WINDOW_EMPTY_CHAR;
         }
     }
 }
 
 void render_window_render(render_window_t* window)
 {
-    char new_line = '\n';
+    char new_line = RENDER_WINDOW_NEW_LINE;
     for (size_t x = 0; x < window->width; x++)
     {
         for (size_t y = 0; y < window->height; y++)
