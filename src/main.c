@@ -1,3 +1,5 @@
+#include <sys/ioctl.h>
+
 #include "KeyReader.h"
 #include "RenderQueue.h"
 #include "RenderWindow.h"
@@ -17,6 +19,9 @@ void test_render(void* arg)
 
 int main(int argc, char const *argv[])
 {
+    struct winsize terminal;
+    ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
+
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
 
     render_queue_t queue = render_queue_create(5);
@@ -34,8 +39,9 @@ int main(int argc, char const *argv[])
 
     render_queue_render(&queue);
 
-    render_window_t window = render_window_create(10, 10);
-    window.buffer[1][1] = 'P';
+    render_window_t window = render_window_create(terminal.ws_col, terminal.ws_row);
+
+
 
     render_window_render(&window);
 

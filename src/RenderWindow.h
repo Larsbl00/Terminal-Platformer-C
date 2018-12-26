@@ -62,4 +62,16 @@ void render_window_flush(render_window_t* window);
  */
 void render_window_render(render_window_t* window);
 
+/**
+ * @brief An easier wayto set the values in the buffer
+ * 
+ * @param window
+ * @param x 
+ * @param y 
+ * @param value 
+ * 
+ * @pre window may not be NULL
+ */
+void render_window_set(render_window_t window, const size_t x, const size_t y, char value);
+
 #endif
