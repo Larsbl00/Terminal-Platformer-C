@@ -12,16 +12,16 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#include "Renderer.h"
+#include "RenderQueueItem.h"
 
 #ifndef RENDER_QUEUE_H
 #define RENDER_QUEUE_H
 
 typedef struct render_queue
 {
-    const renderer_t** render_queue;
-    size_t render_queue_current_size;
-    const size_t render_queue_max_size;
+    render_queue_item_t* queue;
+    size_t queue_current_size;
+    const size_t queue_max_size;
 
 } render_queue_t;
 
@@ -48,7 +48,7 @@ void render_queue_destroy(render_queue_t* render_queue);
  * @param item_to_render A reference to the item to render
  * @return int8_t Returns -1 if the addition fails. i.e. a pointer refers to NULL or the item is already present
  */
-int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_render);
+int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_render, void* parameter);
 
 /**
  * @brief Removes an item from the render queue
