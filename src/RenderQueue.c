@@ -65,7 +65,6 @@ int8_t render_queue_is_item_present(render_queue_t* render_queue, renderer_t* it
         //Exit if item is located
         if (render_queue->queue[i].renderer == item)
         {
-            printf("Item Located at %li\n", i);
             *index = i;
             return 0;
         }

@@ -12,6 +12,8 @@
 #ifndef RENDER_WINDOW_H
 #define RENDER_WINDOW_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 typedef struct render_window
