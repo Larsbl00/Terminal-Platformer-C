@@ -32,3 +32,13 @@ key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* f
     //Upload new settings
     tcsetattr(fileno(stdin), TCSANOW, &reader.settings_new);
 }
+
+void key_reader_destroy(key_reader_t* key_reader)
+{
+    //Reset stdin to the old settings
+    tcsetattr(fileno(stdin), TCSANOW, &key_reader->settings_old);
+
+    //Free the resources used
+    free(key_reader);
+}
+
