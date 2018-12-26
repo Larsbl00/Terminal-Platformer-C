@@ -42,7 +42,7 @@ int8_t render_queue_add_item(render_queue_t* render_queue, renderer_t* item_to_r
     if (render_queue == NULL || item_to_render == NULL) return -1;
 
     //Early exit if there is no more room left for the item
-    if ((render_queue->queue_current_size + 1 >= render_queue->queue_max_size - 1)) return -1;
+    if ((render_queue->queue_current_size + 1 > render_queue->queue_max_size)) return -1;
 
     //Check if item is already present, escape if it is present
     size_t index;

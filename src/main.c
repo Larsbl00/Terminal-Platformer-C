@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
 {
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
 
-    render_queue_t queue = render_queue_create(60);
+    render_queue_t queue = render_queue_create(1);
 
     renderer_t test = (renderer_t){test_render};
     renderer_t test2 = (renderer_t){test_render};
