@@ -1,5 +1,18 @@
+#include "KeyReader.h"
+
+void key_press_handler(char pressed_char, void* arguments)
+{
+    printf("You pressed: %c\n", pressed_char);
+}
+
+
 int main(int argc, char const *argv[])
 {
-    /* code */
+    key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
+
+
+
+
+    key_reader_destroy(&key_reader);
     return 0;
 }

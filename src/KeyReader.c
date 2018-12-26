@@ -31,6 +31,8 @@ key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* f
 
     //Upload new settings
     tcsetattr(fileno(stdin), TCSANOW, &reader.settings_new);
+
+    return reader;
 }
 
 void key_reader_destroy(key_reader_t* key_reader)
