@@ -8,6 +8,7 @@ CFLAGS = -Wall -Werror
 #Files
 SOURCES = \
 		$(SRC_DIR)/main.c \
+		$(SRC_DIR)/KeyReader.c \
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))

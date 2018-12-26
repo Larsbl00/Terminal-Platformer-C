@@ -35,7 +35,7 @@ typedef struct key_reader
  * @param functoin_arguments 
  * @return key_reader 
  */
-key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* functoin_arguments);
+key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* function_arguments);
 
 /**
  * @brief Destroys a key reader and restores all settings
