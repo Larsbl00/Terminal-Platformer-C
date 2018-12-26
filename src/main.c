@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
 
 
-
+    while(1) key_reader_poll(&key_reader);
 
     key_reader_destroy(&key_reader);
     return 0;
