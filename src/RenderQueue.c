@@ -30,3 +30,8 @@ render_queue_t render_queue_create(const size_t size)
     return queue;
 }
 
+void render_queue_destroy(render_queue_t* render_queue)
+{
+    //Only the queue is freed, not the pointers to the items.
+    free(render_queue->queue);
+}

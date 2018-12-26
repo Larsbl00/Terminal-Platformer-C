@@ -1,4 +1,5 @@
 #include "KeyReader.h"
+#include "RenderQueue.h"
 
 uint8_t is_running = 1;
 
@@ -12,10 +13,13 @@ int main(int argc, char const *argv[])
 {
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
 
+    render_queue_t queue = render_queue_create(60);
 
-    while(is_running) key_reader_poll(&key_reader);
+
 
     key_reader_destroy(&key_reader);
+
+    render_queue_destroy(&queue);
 
     return 0;
 }
