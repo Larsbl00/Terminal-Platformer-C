@@ -16,8 +16,19 @@
 
 typedef struct render_queue_item
 {
-    renderer_t* renderer;
     void* parameter;
+    renderer_t* renderer;
 } render_queue_item_t;
+
+/**
+ * @brief Creates a new item to add to the render queue
+ * 
+ * @param renderer 
+ * @param parameter 
+ * @return render_queue_item_t The item to add to the queue
+ * 
+ * @pre renderer and parameter may not be NULL
+ */
+render_queue_item_t render_queue_item_create(renderer_t* renderer, void* parameter);
 
 #endif
