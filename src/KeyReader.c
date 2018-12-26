@@ -27,7 +27,7 @@ key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* f
 
 
     //Disable everything except for the ICANNON and ECHO flags
-    reader.settings_new.c_lflag = 0 | ICANON | ECHO;
+    reader.settings_new.c_lflag &= (~ICANON & ~ECHO);
 
     //Upload new settings
     tcsetattr(fileno(stdin), TCSANOW, &reader.settings_new);
