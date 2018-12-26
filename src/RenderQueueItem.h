@@ -26,8 +26,6 @@ typedef struct render_queue_item
  * @param renderer 
  * @param parameter 
  * @return render_queue_item_t The item to add to the queue
- * 
- * @pre renderer and parameter may not be NULL
  */
 render_queue_item_t render_queue_item_create(renderer_t* renderer, void* parameter);
 
