@@ -7,8 +7,10 @@ CFLAGS = -Wall -Werror
 
 #Files
 SOURCES = \
+		$(SRC_DIR)/main.c \
 
-OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir ($(SOURCES))))
+#Create .o files in the obj folder for every file
+OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
 
 #Directories
 SRC_DIR = ./src
@@ -17,17 +19,20 @@ OBJ_DIR = ./obj
 #Targets
 .PHONY: all clean 
 
-all: create_directories
+#Default target
+all: create_directories $(NAME)
 
 #Target to create necessary directories
 create_directories:
 	mkdir -p $(SRC_DIR)
 	mkdir -p $(OBJ_DIR)
 
-
+#Compile the executable
+$(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 #Compile all objects from .c files
-$(OBJ_DIR)/%.o: %.c:
+$(OBJ_DIR)/%.o: $(dir $(SOURCES))%.c
 	$(CC) -c $(CFLAGS) $^ -o $@
 
 #Clean up
