@@ -10,10 +10,18 @@
  */
 
 
-#include <Renderer.h>
+#include <unistd.h>
+
+#include "Renderer.h"
 
 #ifndef RENDER_QUEUE_H
 #define RENDER_QUEUE_H
 
+typedef struct render_queue
+{
+    const renderer_t* render_queue;
+    const size_t render_queue_size;
+
+} render_queue_t;
 
 #endif
