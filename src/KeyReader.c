@@ -39,9 +39,6 @@ void key_reader_destroy(key_reader_t* key_reader)
 {
     //Reset stdin to the old settings
     tcsetattr(fileno(stdin), TCSANOW, &key_reader->settings_old);
-
-    //Free the resources used
-    free(key_reader);
 }
 
 void key_reader_poll(key_reader_t* key_reader)

@@ -48,6 +48,7 @@ key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* f
  * @param key_reader A pointer to the key reader to destroy
  * 
  * @pre key_reader may not be NULL
+ * @post key_reader is destroyed, but not freed
  */
 void key_reader_destroy(key_reader_t* key_reader);
 
