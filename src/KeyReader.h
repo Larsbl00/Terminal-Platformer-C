@@ -26,6 +26,33 @@ typedef struct key_reader
     void* function_arguments;
     struct termios settings_old;
     struct termios settings_new;
-} key_readet_t;
+} key_reader_t;
+
+/**
+ * @brief Create a key reader object
+ * 
+ * @param function_to_execute 
+ * @param functoin_arguments 
+ * @return key_reader 
+ */
+key_reader_t key_reader_create(void (*function_to_execute)(char, void*), void* functoin_arguments);
+
+/**
+ * @brief Destroys a key reader and restores all settings
+ * 
+ * @param key_reader A pointer to the key reader to destroy
+ * 
+ * @pre key_reader may not be NULL
+ */
+void key_reader_destroy(key_reader_t* key_reader);
+
+/**
+ * @brief Polls to see if a button was pressed, if so it launches the event given upon constructing the object
+ * 
+ * @param key_reader 
+ * 
+ * @pre key_reader may not be NULL
+ */
+void key_reader_poll(key_reader_t* key_reader);
 
 #endif
