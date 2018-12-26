@@ -11,6 +11,7 @@ SOURCES = \
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
+vpath %.c $(dir $(SOURCES))
 
 #Directories
 SRC_DIR = ./src
