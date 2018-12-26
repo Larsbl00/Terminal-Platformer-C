@@ -26,8 +26,9 @@ create_directories:
 
 
 
-#Compile all .c to .o files
-%.c: 
+#Compile all objects from .c files
+$(OBJ_DIR)/%.o: %.c:
+	$(CC) -c $(CFLAGS) $^ -o $@
 
 #Clean up
 clean: 
