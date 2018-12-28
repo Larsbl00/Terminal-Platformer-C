@@ -40,7 +40,7 @@ typedef struct player
  * @param width 
  * @return player_t 
  */
-player_t player_create(const size_t height, const size_t width);
+player_t player_create(size_t x, size_t y, const size_t height, const size_t width);
 
 /**
  * @brief Executes actions based on the pressed key
