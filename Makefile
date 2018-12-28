@@ -12,6 +12,7 @@ SOURCES = \
 	$(SRC_DIR)/RenderQueueItem.c \
 	$(SRC_DIR)/RenderQueue.c \
 	$(SRC_DIR)/RenderWindow.c \
+	$(SRC_DIR)/Rectangle.c
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))

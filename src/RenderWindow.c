@@ -15,19 +15,20 @@ render_window_t render_window_create(const size_t height, const size_t width)
 {
     render_window_t window = {.height = height, .width = width};
 
+
     //Allocate the width of the buffer
-    window.buffer = malloc(sizeof(*window.buffer) * width);
+    window.buffer = malloc(sizeof(*window.buffer) * height);
 
     //For each x...
-    for (size_t x = 0; x < width; x++)
+    for (size_t y = 0; y < height; y++)
     {
         //...allocate the y-values
-        window.buffer[x] = malloc(sizeof(**window.buffer) * height);
+        window.buffer[y] = malloc(sizeof(**window.buffer) * width);
 
         //Clean the allocated values
-        for (size_t y = 0; y < height; y++)
+        for (size_t x = 0; x < width; x++)
         {
-            window.buffer[x][y] = RENDER_WINDOW_EMPTY_CHAR;
+            window.buffer[y][x] = RENDER_WINDOW_EMPTY_CHAR;
         }
     }
 
@@ -36,23 +37,23 @@ render_window_t render_window_create(const size_t height, const size_t width)
 
 void render_window_destroy(render_window_t* window)
 {
-    //For each x-values, remove the allocated y-values
-    for (size_t x = 0; x < window->width; x++)
+    //For each y-values, remove the allocated x-values
+    for (size_t y = 0; y < window->height; y++)
     {
-        free(window->buffer[x]);
+        free(window->buffer[y]);
     }
 
-    //Free the array holding all x-values
+    //Free the array holding all y-values
     free(window->buffer);
 }
 
 void render_window_flush(render_window_t* window)
 {
-    for (size_t x = 0; x < window->width; x++)
+    for (size_t y = 0; y < window->height; y++)
     {
-        for (size_t y = 0; y < window->height; y++)
+        for (size_t x = 0; x < window->width; x++)
         {
-            window->buffer[x][y] = RENDER_WINDOW_EMPTY_CHAR;
+            window->buffer[y][x] = RENDER_WINDOW_EMPTY_CHAR;
         }
     }
 }
@@ -60,13 +61,21 @@ void render_window_flush(render_window_t* window)
 void render_window_render(render_window_t* window)
 {
     char new_line = RENDER_WINDOW_NEW_LINE;
-    for (size_t x = 0; x < window->width; x++)
+    for (size_t y = 0; y < window->height; y++)
     {
-        for (size_t y = 0; y < window->height; y++)
+        for (size_t x = 0; x < window->width; x++)
         {
-            char* character = &window->buffer[x][y];
+            char* character = &window->buffer[y][x];
             write(fileno(stdout), character, sizeof(*character));
         }
         write(fileno(stdout), &new_line, sizeof(new_line));
     }
+}
+
+void render_window_set(render_window_t* window, const size_t x, const size_t y, char value)
+{
+    //Early exit if out of bounds
+    if (x >= window->width || y >= window->height) return;
+
+    window->buffer[y][x] = value;
 }

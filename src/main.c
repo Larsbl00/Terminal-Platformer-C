@@ -3,6 +3,7 @@
 #include "KeyReader.h"
 #include "RenderQueue.h"
 #include "RenderWindow.h"
+#include "Rectangle.h"
 
 uint8_t is_running = 1;
 
@@ -11,42 +12,32 @@ void key_press_handler(char pressed_char, void* arguments)
     printf("You pressed: %c\n", pressed_char);
 }
 
-void test_render(void* arg)
-{
-    printf("Rendering\n");
-}
-
 
 int main(int argc, char const *argv[])
 {
     //Create a window with the current size of the temrinal
     struct winsize terminal;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
-    render_window_t window = render_window_create(terminal.ws_col, terminal.ws_row);
+    render_window_t window = render_window_create(terminal.ws_row, terminal.ws_col);
 
     key_reader_t key_reader = key_reader_create(key_press_handler, NULL);
-
     render_queue_t queue = render_queue_create(5);
 
-    renderer_t test = (renderer_t){test_render};
-    renderer_t test2 = (renderer_t){test_render};
-    renderer_t test3 = (renderer_t){test_render};
 
-    printf("Add result: %i\n", render_queue_add_item(&queue, &test, NULL));
-    printf("Add result: %i\n", render_queue_add_item(&queue, &test2, NULL));
-    printf("Add result: %i\n", render_queue_add_item(&queue, &test3, NULL));
-    printf("Remove result: %i\n", render_queue_remove_item(&queue, &test2));
-    printf("Remove result: %i\n", render_queue_remove_item(&queue, &test2));
-    printf("Add result: %i\n", render_queue_add_item(&queue, &test, NULL));
+    rectangle_t rect = rectangle_create(2, 0, 15, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_FILLED);
+    rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){&rect, &window};
+
+    printf("Add result: %i\n", render_queue_add_item(&queue, &rect.renderer, &rect_param));
 
     render_queue_render(&queue);
-
+    
     render_window_render(&window);
 
+
+
+    //Clean
     render_window_destroy(&window);
-
     key_reader_destroy(&key_reader);
-
     render_queue_destroy(&queue);
 
     return 0;

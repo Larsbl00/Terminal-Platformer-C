@@ -72,6 +72,6 @@ void render_window_render(render_window_t* window);
  * 
  * @pre window may not be NULL
  */
-void render_window_set(render_window_t window, const size_t x, const size_t y, char value);
+void render_window_set(render_window_t* window, const size_t x, const size_t y, char value);
 
 #endif
