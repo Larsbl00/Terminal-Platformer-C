@@ -23,6 +23,7 @@
 #define PLAYER_KEY_MOVE_LEFT ('d')
 #define PLAYER_KEY_MOVE_RIGHT ('a')
 #define PLAYER_KEY_MOVE_UP ('w')
+#define PLAYER_KEY_JUMP (' ')
 
 typedef struct player
 {
