@@ -19,14 +19,16 @@
 #include "RenderWindow.h"
 #include "Rectangle.h"
 
+#define PLAYER_KEY_JUMP (' ')
 #define PLAYER_KEY_MOVE_DOWN ('s')
 #define PLAYER_KEY_MOVE_LEFT ('d')
 #define PLAYER_KEY_MOVE_RIGHT ('a')
 #define PLAYER_KEY_MOVE_UP ('w')
-#define PLAYER_KEY_JUMP (' ')
 
 typedef struct player
 {
+    const size_t jump_distance;
+    const size_t move_distance;
     rectangle_t hit_box;
     renderer_t renderer;
     size_t x;
@@ -40,13 +42,15 @@ typedef struct player
  * @param width 
  * @return player_t 
  */
-player_t player_create(size_t x, size_t y, const size_t height, const size_t width);
+player_t player_create(size_t x, size_t y, const size_t height, const size_t width, const size_t jump_distance, const size_t move_distance);
 
 /**
  * @brief Executes actions based on the pressed key
  * 
  * @param player 
  * @param key 
+ * 
+ * @pre player may not be NULL
  */
 void player_handle_key(player_t* player, char key);
 
