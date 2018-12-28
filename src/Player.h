@@ -19,6 +19,11 @@
 #include "RenderWindow.h"
 #include "Rectangle.h"
 
+#define PLAYER_KEY_MOVE_DOWN ('s')
+#define PLAYER_KEY_MOVE_LEFT ('d')
+#define PLAYER_KEY_MOVE_RIGHT ('a')
+#define PLAYER_KEY_MOVE_UP ('w')
+
 typedef struct player
 {
     rectangle_t hit_box;
