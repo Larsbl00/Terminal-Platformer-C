@@ -21,6 +21,25 @@ rectangle_t rectangle_create(const size_t x, const size_t y, const size_t width,
     return rect;
 }
 
+uint8_t rectangle_collides(const rectangle_t* rect, const size_t x, const size_t y)
+{
+    //Early exit if the pointer is invallid, or if the rect is not hittable
+    if (rect == NULL || !(rect->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE)) return 0;
+
+    if ((x >= rect->x) && // Check if requested x is greater than the x of the rect
+        (x <= rect->x + rect->width) && //Check if the x is smaller than the end of the object 
+        (y >= rect->y) && //Check if the requested y is greater than the y of the object
+        (y <= rect->y + rect->height) //Check if the y is smaller than the end of the rect
+        )
+    {
+        return 1;
+    }
+    else 
+    {
+        return 0;
+    }
+}
+
 void rectangle_draw(void* parameter)
 {
     if (parameter == NULL) return;
