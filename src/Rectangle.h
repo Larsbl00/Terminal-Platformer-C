@@ -78,6 +78,15 @@ rectangle_t rectangle_create(const size_t x, const size_t y, const size_t width,
 uint8_t rectangle_collides(const rectangle_t* rect, const size_t x, const size_t y);
 
 /**
+ * @brief Checks if two rectangles hit each other
+ * 
+ * @param rect1 
+ * @param rect2 
+ * @return uint8_t Returns 1 when the rectangle hits the other rectangle, else it will return 0
+ */
+uint8_t rectangle_collides_with_rectangle(const rectangle_t* rect1, const rectangle_t* rect2);
+
+/**
  * @brief This function is supposed to draw a rectangle, but is made to be compatable with the renderer
  * 
  */

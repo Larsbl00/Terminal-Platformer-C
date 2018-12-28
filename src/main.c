@@ -27,9 +27,13 @@ int main(int argc, char const *argv[])
     rectangle_t rect = rectangle_create(2, 0, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE);
     rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){&rect, &window};
 
-    rectangle_t rect2 = rectangle_create(8, 0, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_FILLED | RECTANGLE_PROPERTY_IS_COLLIDABLE);
+    rectangle_t rect2 = rectangle_create(2, 5, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE);
+    rectangle_draw_parameter_t rect_param2 = (rectangle_draw_parameter_t){&rect2, &window};
 
     printf("Add result: %i\n", render_queue_add_item(&queue, &rect.renderer, &rect_param));
+    printf("Add result: %i\n", render_queue_add_item(&queue, &rect2.renderer, &rect_param2));
+
+    printf("Collision: %i\n", rectangle_collides_with_rectangle(&rect, &rect2));
 
 
     //Calls the render function of each item in the queue

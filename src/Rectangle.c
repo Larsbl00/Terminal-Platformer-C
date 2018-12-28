@@ -40,6 +40,27 @@ uint8_t rectangle_collides(const rectangle_t* rect, const size_t x, const size_t
     }
 }
 
+uint8_t rectangle_collides_with_rectangle(const rectangle_t* rect1, const rectangle_t* rect2)
+{
+    //Early exits if the params are NULL or non hitable
+    if (rect1 == NULL || rect2 == NULL || !(rect1->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE) || 
+        !(rect2->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE)) 
+    {
+        return 0;
+    }
+
+    //Check if the corners of the rect hit, the rest is irrelevant
+    if (rectangle_collides(rect1, rect2->x, rect2->y) || rectangle_collides(rect1, rect2->x + rect2->width, rect2->y) ||
+       rectangle_collides(rect1, rect2->x, rect2->y + rect2->height) + rectangle_collides(rect1, rect2->x + rect2->width, rect2->y + rect2->height))
+    {
+        return 1;
+    }
+    else 
+    {
+        return 0;
+    }
+}
+
 void rectangle_draw(void* parameter)
 {
     if (parameter == NULL) return;
