@@ -4,6 +4,7 @@
 #include "RenderQueue.h"
 #include "RenderWindow.h"
 #include "Rectangle.h"
+#include "Player.h"
 
 uint8_t is_running = 1;
 
