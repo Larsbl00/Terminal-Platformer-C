@@ -21,11 +21,33 @@
 
 typedef struct player
 {
-
     rectangle_t hit_box;
     renderer_t renderer;
     size_t x;
     size_t y;
 } player_t;
+
+/**
+ * @brief Constructs a new player
+ * 
+ * @param height 
+ * @param width 
+ * @return player_t 
+ */
+player_t player_create(const size_t height, const size_t width);
+
+/**
+ * @brief Executes actions based on the pressed key
+ * 
+ * @param player 
+ * @param key 
+ */
+void player_handle_key(player_t* player, char key);
+
+/**
+ * @brief Draws the player, and is made compateable with the renderers draw function
+ * 
+ */
+void player_draw(void*);
 
 #endif
