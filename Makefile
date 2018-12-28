@@ -16,6 +16,8 @@ SOURCES = \
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
+
+#Create a vpath to all directories in the sources
 VPATH = $(sort $(dir $(SOURCES)))
 
 #Directories

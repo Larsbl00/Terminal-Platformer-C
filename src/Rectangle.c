@@ -11,7 +11,7 @@
 
 #include "Rectangle.h"
 
-rectangle_t rectangle_create(const size_t x, const size_t y, const size_t height, const size_t width, const uint8_t properties)
+rectangle_t rectangle_create(const size_t x, const size_t y, const size_t width, const size_t height, const uint8_t properties)
 {
     rectangle_t rect = {.height = height, .width = width, .properties = properties, .x = x, .y = y};
 
@@ -34,22 +34,22 @@ void rectangle_draw(void* parameter)
     {
         for (size_t x = rect->x; x < (rect->x + rect->width); x++)
         {   
-            //Check if there is a left side
+            //Check if there is a top
             if ((rect->properties & RECTANGLE_PROPERTY_BORDER_TOP) &&  (y == rect->y))
             {
                 render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
             }
-            //Check if there is a right side
+            //Check if there is a bottom
             else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_BOTTOM) && (y == (rect->y + rect->height) - 1))
             {
                 render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
             }
-            //Check if it there is a top
+            //Check if it there is a left side
             else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_LEFT) && (x == rect->x))
             {
                 render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);
             }
-            //Check if there is a bottom
+            //Check if there is a right side
             else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_RIGHT) && (x == (rect->x + rect->width) - 1))
             {
                 render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);

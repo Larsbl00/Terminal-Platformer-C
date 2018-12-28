@@ -24,10 +24,14 @@ int main(int argc, char const *argv[])
     render_queue_t queue = render_queue_create(5);
 
 
-    rectangle_t rect = rectangle_create(2, 0, 15, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_FILLED);
+    rectangle_t rect = rectangle_create(2, 0, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL);
     rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){&rect, &window};
 
+    rectangle_t rect2 = rectangle_create(8, 0, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_FILLED);
+    rectangle_draw_parameter_t rect_param2 = (rectangle_draw_parameter_t){&rect2, &window};
+
     printf("Add result: %i\n", render_queue_add_item(&queue, &rect.renderer, &rect_param));
+    printf("Add result: %i\n", render_queue_add_item(&queue, &rect2.renderer, &rect_param2));
 
     render_queue_render(&queue);
     

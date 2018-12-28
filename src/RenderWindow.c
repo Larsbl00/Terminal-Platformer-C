@@ -77,5 +77,6 @@ void render_window_set(render_window_t* window, const size_t x, const size_t y, 
     //Early exit if out of bounds
     if (x >= window->width || y >= window->height) return;
 
+    //Set y first because we render from top left to bottom right
     window->buffer[y][x] = value;
 }
