@@ -26,10 +26,10 @@
 #define PLAYER_SIZE_HEIGHT (0x03)
 #define PLAYER_SIZE_WIDTH (0x05)
 
-const static char player_model[PLAYER_SIZE_HEIGHT][PLAYER_SIZE_WIDTH] = {
-    {'(', 'o', ' ', 'O', ')'},
+static char player_model[PLAYER_SIZE_HEIGHT][PLAYER_SIZE_WIDTH] = {
+    {'(', 'O', 'w', 'O', ')'},
     {' ', ' ', '|', ' ', ' '},
-    {' ', '|', '-', '|', ' '},
+    {' ', '/', ' ', '\\', ' '},
 };
 
 typedef struct player
