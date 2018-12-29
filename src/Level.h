@@ -27,6 +27,8 @@ typedef struct level
     const size_t floor_count;
 
     rectangle_t* floors;
+    uint8_t is_completed;
+    renderer_t renderer;
 } level_t;
 
 /**
@@ -38,6 +40,19 @@ typedef struct level
  * @param floor_count The amount of items stores in the floors values
  * @return level_t 
  */
-level_t create_level(const size_t width, const size_t height, rectangle_t* floors, const size_t floor_count);
+level_t level_create(const size_t width, const size_t height, rectangle_t* floors, const size_t floor_count);
+
+/**
+ * @brief A draw function compatable with the renderers demand
+ * 
+ */
+void level_draw(void*);
+
+/**
+ * @brief Updates a given level
+ * 
+ * @param level 
+ */
+void level_update(level_t* level);
 
 #endif
