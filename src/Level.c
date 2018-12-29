@@ -27,7 +27,26 @@ level_t level_create(const size_t width, const size_t height, rectangle_t* floor
 
 void level_draw(void* parameters)
 {
+    level_draw_parameter_t* params = (level_draw_parameter_t*) parameters;
 
+    level_t* level = params->level;
+    player_t* player = params->player;
+    render_window_t* window = params->window;
+
+    for (size_t i = 0; i < level->floor_count; i++)
+    {
+        rectangle_t* pfloor = &level->floors[i];
+
+        //Check if the item ate the utmost right needs to be present
+        if (
+            (player->hit_box.x + player->hit_box.width) + (window->width * LEVEL_RENDER_DISTANCE_FACTOR) > pfloor->x &&
+            (player->hit_box.x - (window->width * LEVEL_RENDER_DISTANCE_FACTOR)) < (pfloor->x + pfloor->width)
+        )
+        {
+            rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){pfloor, window};
+            rectangle_draw(&rect_param);
+        }
+    }
 }
 
 void level_update_player(level_t* level, player_t* player)
@@ -44,14 +63,20 @@ void level_update_player(level_t* level, player_t* player)
             if (player->hit_box.x >= pfloor->x && player->hit_box.x <= (pfloor->x + pfloor->width))
             {
                 //Correct player when they try to go through the bottom
-                if (player->hit_box.y > (pfloor->y + pfloor->height))
+                if (player->hit_box.y < (pfloor->y + pfloor->height))
                 {
-                    player_move(player, 0, ((pfloor->y + pfloor->height)));
+                    printf("Player hits bottom\n");
+                    player_move(player, 0, ((pfloor->y - pfloor->height)) + 1);
                 }
                 //Check if the player is about to fall through the floor
-                else if ((player->hit_box.y + player->hit_box.height) < pfloor->y)
+                else if ((player->hit_box.y + player->hit_box.height) > pfloor->y)
                 {
-                    player_move(player, 0, pfloor->y);
+                    printf("Player hits top\n");
+                    player_move(player, 0, pfloor->y - player->hit_box.height + 1);
+                }
+                else 
+                {
+                    printf("No Collision with floor\n");
                 }
             }
         }

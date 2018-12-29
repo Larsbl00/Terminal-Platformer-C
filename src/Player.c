@@ -38,7 +38,7 @@ void player_handle_key(player_t* player, char key)
             break;
 
         case PLAYER_KEY_MOVE_RIGHT:
-            player_move(player, player->move_distance, 0);
+            player_move(player, -player->move_distance, 0);
             break;
 
         default:
@@ -69,8 +69,8 @@ void player_draw(void* parameters)
 
 void player_move(player_t* player, const size_t x, const size_t y)
 {
-    player->x += x;
-    player->y += y;
+    player->x = x;
+    player->y = y;
 
     player->hit_box.x = player->x;
     player->hit_box.y = player->y;

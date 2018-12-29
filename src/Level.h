@@ -20,6 +20,8 @@
 #include "RenderWindow.h"
 #include "Rectangle.h"
 
+#define LEVEL_RENDER_DISTANCE_FACTOR (0.75)
+
 typedef struct level
 {
     const size_t width;

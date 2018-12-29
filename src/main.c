@@ -32,9 +32,22 @@ int main(int argc, char const *argv[])
     rectangle_t rect2 = rectangle_create(2, 5, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE);
     rectangle_draw_parameter_t rect_param2 = (rectangle_draw_parameter_t){&rect2, &window};
 
-    player_t player = player_create(2, 11, 1, 1);
+    player_t player = player_create(2, 19, 1, 1);
     player_draw_parameter_t player_param = (player_draw_parameter_t){&player, &window};
 
+    rectangle_t floors[] = {
+        rectangle_create(0, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(12, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(73, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, 15, 10, 3, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+    };
+
+    size_t floor_count = (sizeof(floors) / sizeof(*floors));
+
+    level_t level = level_create(window.width, window.height, floors, floor_count);
+    level_draw_parameter_t level_param = {&player, &level, &window};
+
+    printf("Add result: %i\n", render_queue_add_item(&queue, &level.renderer, &level_param));
     printf("Add result: %i\n", render_queue_add_item(&queue, &rect.renderer, &rect_param));
     printf("Add result: %i\n", render_queue_add_item(&queue, &rect2.renderer, &rect_param2));
     printf("Add result: %i\n", render_queue_add_item(&queue, &player.renderer, &player_param));
@@ -43,6 +56,7 @@ int main(int argc, char const *argv[])
 
     printf("Collision: %i\n", rectangle_collides_with_rectangle(&rect2, &player.hit_box));
 
+    level_update_player(&level, &player);
 
     //Calls the render function of each item in the queue
     render_queue_render(&queue);
