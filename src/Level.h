@@ -33,6 +33,7 @@ typedef struct level
 
 typedef struct level_draw_parameter
 {
+    player_t* player;
     level_t* level;
     render_window_t* window;
 } level_draw_parameter_t;
@@ -54,5 +55,12 @@ level_t level_create(const size_t width, const size_t height, rectangle_t* floor
  */
 void level_draw(void*);
 
+/**
+ * @brief Checks if the player is hitting any surfaces
+ * 
+ * @param level 
+ * @param player 
+ */
+void level_update_player(level_t* level, player_t* player);
 
 #endif

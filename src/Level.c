@@ -29,3 +29,8 @@ void level_draw(void* parameters)
 {
 
 }
+
+void level_update_player(level_t* level, player_t* player)
+{
+    
+}
