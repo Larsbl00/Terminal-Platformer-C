@@ -25,6 +25,15 @@
 #define PLAYER_KEY_MOVE_RIGHT ('a')
 #define PLAYER_KEY_MOVE_UP ('w')
 
+#define PLAYER_SIZE_HEIGHT (0x03)
+#define PLAYER_SIZE_WIDTH (0x05)
+
+const static char player_model[PLAYER_SIZE_HEIGHT][PLAYER_SIZE_WIDTH] = {
+    {'(', 'o', ' ', 'O', ')'},
+    {' ', ' ', '|', ' ', ' '},
+    {' ', '|', '-', '|', ' '},
+};
+
 typedef struct player
 {
     const size_t jump_distance;
@@ -35,6 +44,13 @@ typedef struct player
     size_t y;
 } player_t;
 
+typedef struct player_draw_parameter
+{
+    player_t* player;
+    render_window_t* window;
+} player_draw_parameter_t;
+
+
 /**
  * @brief Constructs a new player
  * 
@@ -42,7 +58,7 @@ typedef struct player
  * @param width 
  * @return player_t 
  */
-player_t player_create(size_t x, size_t y, const size_t height, const size_t width, const size_t jump_distance, const size_t move_distance);
+player_t player_create(size_t x, size_t y, const size_t jump_distance, const size_t move_distance);
 
 /**
  * @brief Executes actions based on the pressed key

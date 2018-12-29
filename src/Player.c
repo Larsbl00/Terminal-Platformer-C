@@ -11,12 +11,12 @@
 
 #include "Player.h"
 
-player_t player_create(size_t x, size_t y, const size_t height, const size_t width, const size_t jump_distance, const size_t move_distance)
+player_t player_create(size_t x, size_t y, const size_t jump_distance, const size_t move_distance)
 {
     player_t player = {
         .jump_distance = jump_distance,
         .move_distance = move_distance,
-        .hit_box = rectangle_create(x, y, width, height, RECTANGLE_PROPERTY_IS_COLLIDABLE),
+        .hit_box = rectangle_create(x, y, PLAYER_SIZE_WIDTH, PLAYER_SIZE_HEIGHT, RECTANGLE_PROPERTY_IS_COLLIDABLE),
         .renderer = (renderer_t){player_draw},
         .x = x,
         .y = y
@@ -48,6 +48,9 @@ void player_handle_key(player_t* player, char key)
         case PLAYER_KEY_MOVE_UP:
             player->y -= player->move_distance;
             break;
+
+        default:
+            break;
     }
 
 }
@@ -55,5 +58,18 @@ void player_handle_key(player_t* player, char key)
 
 void player_draw(void* parameters)
 {
+    if (parameters == NULL) return;
 
+    player_draw_parameter_t* params = (player_draw_parameter_t*) parameters;
+
+    render_window_t* window = params->window;
+    player_t* player = params->player;
+
+    for (size_t y = player->y; y < (player->y + PLAYER_SIZE_HEIGHT); y++)
+    {
+        for (size_t x = player->x; x < (player->x + PLAYER_SIZE_WIDTH); x++)
+        {
+            render_window_set(window, x, y, player_model[y - player->y][x - player->x]);
+        }
+    }
 }
