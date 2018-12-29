@@ -44,15 +44,14 @@ void level_update_player(level_t* level, player_t* player)
             if (player->hit_box.x >= pfloor->x && player->hit_box.x <= (pfloor->x + pfloor->width))
             {
                 //Correct player when they try to go through the bottom
-                if (player->hit_box.y >= (pfloor->y + pfloor->height))
+                if (player->hit_box.y > (pfloor->y + pfloor->height))
                 {
-                    //The +1 will place it one y value below the bottom
-                    player->hit_box.y = ((pfloor->y + pfloor->height) + 1);
+                    player_move(player, 0, ((pfloor->y + pfloor->height)));
                 }
                 //Check if the player is about to fall through the floor
-                else if ((player->hit_box.y + player->hit_box.height))
+                else if ((player->hit_box.y + player->hit_box.height) < pfloor->y)
                 {
-
+                    player_move(player, 0, pfloor->y);
                 }
             }
         }
