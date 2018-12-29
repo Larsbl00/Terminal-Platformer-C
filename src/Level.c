@@ -32,5 +32,29 @@ void level_draw(void* parameters)
 
 void level_update_player(level_t* level, player_t* player)
 {
-    
+    //Check each floor to see if the player is near the floor. 
+    for (size_t i = 0; i < level->floor_count; i ++)
+    {
+        rectangle_t* pfloor = &level->floors[i];
+        
+        //Check if the floor has collision enabled
+        if (pfloor->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE)
+        {
+            //Player is present in the domain of the rectangle 
+            if (player->hit_box.x >= pfloor->x && player->hit_box.x <= (pfloor->x + pfloor->width))
+            {
+                //Correct player when they try to go through the bottom
+                if (player->hit_box.y >= (pfloor->y + pfloor->height))
+                {
+                    //The +1 will place it one y value below the bottom
+                    player->hit_box.y = ((pfloor->y + pfloor->height) + 1);
+                }
+                //Check if the player is about to fall through the floor
+                else if ((player->hit_box.y + player->hit_box.height))
+                {
+
+                }
+            }
+        }
+    }
 }

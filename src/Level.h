@@ -60,6 +60,8 @@ void level_draw(void*);
  * 
  * @param level 
  * @param player 
+ * 
+ * @pre level and player may not be NULL
  */
 void level_update_player(level_t* level, player_t* player);
 

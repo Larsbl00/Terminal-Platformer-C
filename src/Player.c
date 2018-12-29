@@ -30,15 +30,15 @@ void player_handle_key(player_t* player, char key)
     switch (key)
     {
         case PLAYER_KEY_JUMP:
-            player->y -= player->jump_distance;
+            player_move(player, 0, -player->jump_distance);
             break;
         
         case PLAYER_KEY_MOVE_LEFT:
-            player->x -= player->move_distance;
+            player_move(player, -player->move_distance, 0);
             break;
 
         case PLAYER_KEY_MOVE_RIGHT:
-            player->x += player->move_distance;
+            player_move(player, player->move_distance, 0);
             break;
 
         default:
@@ -64,4 +64,14 @@ void player_draw(void* parameters)
             render_window_set(window, x, y, player_model[y - player->y][x - player->x]);
         }
     }
+}
+
+
+void player_move(player_t* player, const size_t x, const size_t y)
+{
+    player->x += x;
+    player->y += y;
+
+    player->hit_box.x = player->x;
+    player->hit_box.y = player->y;
 }

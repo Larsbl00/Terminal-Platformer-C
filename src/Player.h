@@ -74,4 +74,13 @@ void player_handle_key(player_t* player, char key);
  */
 void player_draw(void*);
 
+/**
+ * @brief Moves the player and it's hitbox
+ * 
+ * @param player 
+ * @param x 
+ * @param y 
+ */
+void player_move(player_t* player, const size_t x, const size_t y);
+
 #endif
