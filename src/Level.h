@@ -27,9 +27,15 @@ typedef struct level
     const size_t floor_count;
 
     rectangle_t* floors;
-    uint8_t is_completed;
+    uint8_t is_complete;
     renderer_t renderer;
 } level_t;
+
+typedef struct level_draw_parameter
+{
+    level_t* level;
+    render_window_t* window;
+} level_draw_parameter_t;
 
 /**
  * @brief Create a level object
