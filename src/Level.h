@@ -54,11 +54,5 @@ level_t level_create(const size_t width, const size_t height, rectangle_t* floor
  */
 void level_draw(void*);
 
-/**
- * @brief Updates a given level
- * 
- * @param level 
- */
-void level_update(level_t* level);
 
 #endif

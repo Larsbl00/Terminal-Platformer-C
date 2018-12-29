@@ -29,8 +29,3 @@ void level_draw(void* parameters)
 {
 
 }
-
-void level_update(level_t* level)
-{
-    
-}
