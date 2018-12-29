@@ -24,10 +24,20 @@ typedef struct level
 {
     const size_t width;
     const size_t height;
+    const size_t floor_count;
 
     rectangle_t* floors;
 } level_t;
 
-
+/**
+ * @brief Create a level object
+ * 
+ * @param width Total width of the level
+ * @param height Total height of the level 
+ * @param floors A pointer to an array of rectangles to act as the floor
+ * @param floor_count The amount of items stores in the floors values
+ * @return level_t 
+ */
+level_t create_level(const size_t width, const size_t height, rectangle_t* floors, const size_t floor_count);
 
 #endif
