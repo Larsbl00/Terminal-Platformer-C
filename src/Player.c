@@ -33,20 +33,12 @@ void player_handle_key(player_t* player, char key)
             player->y -= player->jump_distance;
             break;
         
-        case PLAYER_KEY_MOVE_DOWN:
-            player->y += player->move_distance;
-            break;
-        
         case PLAYER_KEY_MOVE_LEFT:
             player->x -= player->move_distance;
             break;
 
         case PLAYER_KEY_MOVE_RIGHT:
             player->x += player->move_distance;
-            break;
-
-        case PLAYER_KEY_MOVE_UP:
-            player->y -= player->move_distance;
             break;
 
         default:

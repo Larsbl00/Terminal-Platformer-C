@@ -20,10 +20,8 @@
 #include "Rectangle.h"
 
 #define PLAYER_KEY_JUMP (' ')
-#define PLAYER_KEY_MOVE_DOWN ('s')
 #define PLAYER_KEY_MOVE_LEFT ('d')
 #define PLAYER_KEY_MOVE_RIGHT ('a')
-#define PLAYER_KEY_MOVE_UP ('w')
 
 #define PLAYER_SIZE_HEIGHT (0x03)
 #define PLAYER_SIZE_WIDTH (0x05)

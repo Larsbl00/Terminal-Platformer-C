@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
     rectangle_t rect2 = rectangle_create(2, 5, 5, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE);
     rectangle_draw_parameter_t rect_param2 = (rectangle_draw_parameter_t){&rect2, &window};
 
-    player_t player = player_create(10, 20, 1, 1);
+    player_t player = player_create(2, 20, 1, 1);
     player_draw_parameter_t player_param = (player_draw_parameter_t){&player, &window};
 
     printf("Add result: %i\n", render_queue_add_item(&queue, &rect.renderer, &rect_param));
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
     
 
 
-    printf("Collision: %i\n", rectangle_collides_with_rectangle(&rect, &rect2));
+    printf("Collision: %i\n", rectangle_collides_with_rectangle(&rect, &player.hit_box));
 
 
     //Calls the render function of each item in the queue
