@@ -40,4 +40,25 @@ typedef struct game
  */
 game_t game_create(const size_t render_queue_size, const size_t window_height, const size_t window_width);
 
+/**
+ * @brief Destroys the game and clean up the memory
+ * 
+ * @param game 
+ */
+void game_destroy(game_t* game);
+
+/**
+ * @brief 
+ * 
+ * @param game 
+ */
+void game_update(game_t* game);
+
+/**
+ * @brief Attracts the player to the ground, this is the only object effected by gravity this far
+ * 
+ * @param game 
+ */
+void game_update_gravity(game_t* game);
+
 #endif
