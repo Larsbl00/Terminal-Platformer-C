@@ -22,8 +22,9 @@
 #include <string.h>
 #include <time.h>
 
-#define GAME_PLAYER_JUMP_DISTANCE (2)
-#define GAME_PLAYER_MOVE_DISTANCE (1)
+#define GAME_PLAYER_FALL_DISTANCE (1)
+#define GAME_PLAYER_JUMP_DISTANCE (8)
+#define GAME_PLAYER_MOVE_DISTANCE (3)
 #define GAME_REFRESH_DELAY_SECONDS (0.05)
 #define TIME_SECONDS ((double) clock()/CLOCKS_PER_SEC)
 

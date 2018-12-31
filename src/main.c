@@ -20,11 +20,11 @@ int main(int argc, char const *argv[])
 
 
     rectangle_t floors[] = {
-        rectangle_create(0, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(12, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(24, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(0, game_height - 13, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(70, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, game_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(12, game_height - 5, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(24, game_height - 5, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, game_height - 20, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(70, game_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
     };
     const size_t floor_count = (sizeof(floors) / sizeof(*floors));
     level_t level = level_create(game->window.width, game->window.height, floors, floor_count);

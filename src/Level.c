@@ -68,16 +68,23 @@ void level_update_player(level_t* level, player_t* player)
                 ((phit_box->x + phit_box->width) >= pfloor->x && (phit_box->x + phit_box->width) < (pfloor->x + pfloor->width))
             )
             {
-                //Correct player when they try to go through the bottom
-                if ((player->hit_box.y > pfloor->y) && (player->hit_box.y <= pfloor->y + pfloor->height))
+                //Check if the player hits the bottom of the floor
+                if (
+                    (phit_box->y > pfloor->y) && (phit_box->y <= (pfloor->y + pfloor->height))
+                )
                 {
-                    player_move(player, player->x, ((pfloor->y - pfloor->height)) + 1);
+                    printf("Hit roof\n");
+                    //Move back to the bottom of the rect
+                    player_move(player, player->x, (pfloor->y + pfloor->height));
                 }
-                //Check if the player is about to fall through the floor
-                else if ((player->hit_box.y + player->hit_box.height) > pfloor->y)
+                //Check if the player hits the top of the floor
+                else if (
+                    ((phit_box->y + phit_box->height) > pfloor->y) && ((phit_box->y + phit_box->height) <= (pfloor->y + pfloor->height))
+                )
                 {
-                    printf("Top hit\n");
-                    player_move(player, player->x, pfloor->y - player->hit_box.height + 1);
+                    printf("Hit floor\n");
+                    //Move back to the top of the rect
+                    player_move(player, player->x, (pfloor->y - phit_box->height) + 1);
                 }
             }
         }

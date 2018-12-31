@@ -86,16 +86,18 @@ void game_unload_current_level(game_t* game)
 
 void game_update(game_t* game)
 {    
-    //Read pressed key
-    key_reader_poll(&game->input_reader);
 
     if (TIME_SECONDS - game->time_last_frame > GAME_REFRESH_DELAY_SECONDS)
     {
         //Clear current window 
         render_window_flush(&game->window);
 
+
         //Let the gravity do his thing
         game_update_gravity(game);
+
+        //Read pressed key
+        key_reader_poll(&game->input_reader);
 
         //Update player
         level_update_player(game->level, &game->player);
@@ -131,5 +133,5 @@ void game_update(game_t* game)
 void game_update_gravity(game_t* game)
 {
     player_t* player = &game->player;
-    player_move(player, player->x, player->y + 1);
+    player_move(player, player->x, player->y + GAME_PLAYER_FALL_DISTANCE);
 }

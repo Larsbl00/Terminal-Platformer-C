@@ -37,7 +37,6 @@ typedef struct player
     const size_t jump_distance;
     const size_t move_distance;
     rectangle_t hit_box;
-    char last_key_pressed;
     renderer_t renderer;
     size_t x;
     size_t y;
