@@ -55,22 +55,29 @@ void level_update_player(level_t* level, player_t* player)
     for (size_t i = 0; i < level->floor_count; i ++)
     {
         rectangle_t* pfloor = &level->floors[i];
+        rectangle_t* phit_box = &player->hit_box;
         
         //Check if the floor has collision enabled
         if (pfloor->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE)
         {
+            //size_t player_right_x = player->hit_box.x + player->hit_box.width;
+
             //Player is present in the domain of the rectangle 
-            if (player->hit_box.x >= pfloor->x && player->hit_box.x <= (pfloor->x + pfloor->width))
+            if (
+                (phit_box->x >= pfloor->x && phit_box->x < (pfloor->x + pfloor->width)) ||
+                ((phit_box->x + phit_box->width) >= pfloor->x && (phit_box->x + phit_box->width) < (pfloor->x + pfloor->width))
+            )
             {
                 //Correct player when they try to go through the bottom
-                if (player->hit_box.y < (pfloor->y + pfloor->height))
+                if ((player->hit_box.y > pfloor->y) && (player->hit_box.y <= pfloor->y + pfloor->height))
                 {
-                    player_move(player, 0, ((pfloor->y - pfloor->height)) + 1);
+                    player_move(player, player->x, ((pfloor->y - pfloor->height)) + 1);
                 }
                 //Check if the player is about to fall through the floor
                 else if ((player->hit_box.y + player->hit_box.height) > pfloor->y)
                 {
-                    player_move(player, 0, pfloor->y - player->hit_box.height + 1);
+                    printf("Top hit\n");
+                    player_move(player, player->x, pfloor->y - player->hit_box.height + 1);
                 }
             }
         }

@@ -65,9 +65,7 @@ void game_load_level(game_t* game, level_t* level, level_draw_parameter_t* level
 void game_handle_input(char character, void* parameters)
 {
     game_t* game = (game_t*) parameters;
-
     player_handle_key(&game->player, character);
-    printf("Pressed: %c. Player located at (%li, %li)\n", character, game->player.x, game->player.y);
 }
 
 void game_unload_current_level(game_t* game)
@@ -88,26 +86,38 @@ void game_unload_current_level(game_t* game)
 
 void game_update(game_t* game)
 {    
+    //Read pressed key
+    key_reader_poll(&game->input_reader);
 
     if (TIME_SECONDS - game->time_last_frame > GAME_REFRESH_DELAY_SECONDS)
     {
-
         //Clear current window 
         render_window_flush(&game->window);
 
-        size_t old_player_x = game->player.x;
+        //Let the gravity do his thing
+        game_update_gravity(game);
 
         //Update player
         level_update_player(game->level, &game->player);
-        //Player moved faster than possible, so the game will be ended 
-        if (old_player_x - game->player.x > game->player.move_distance)
-        {
-            game->game_status &= ~GAME_STATUS_GRAVITY_ACTIVE; 
-        }
     
+        
+        //Player won game
+        if (game->player.x > game->level->width)
+        {
+            //Stop game
+            game->game_status &= ~GAME_STATUS_GAME_ACTIVE; 
 
-        //Read pressed key
-        key_reader_poll(&game->input_reader);
+            //Flag for victory
+            game->game_status |= GAME_STATUS_GAME_WON;
+        }
+        //Player fell out of map
+        else if (game->player.y > game->level->height)
+        {
+            //Stop game
+            game->game_status &= ~GAME_STATUS_GAME_ACTIVE; 
+            //Flag for loss
+            game->game_status &= ~GAME_STATUS_GAME_WON;
+        }
 
         //Render all objects
         render_queue_render(&game->render_queue);
@@ -116,4 +126,10 @@ void game_update(game_t* game)
         //Update time
         game->time_last_frame = TIME_SECONDS;
     }
+}
+
+void game_update_gravity(game_t* game)
+{
+    player_t* player = &game->player;
+    player_move(player, player->x, player->y + 1);
 }

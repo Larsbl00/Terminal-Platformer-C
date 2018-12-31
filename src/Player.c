@@ -27,6 +27,8 @@ player_t player_create(size_t x, size_t y, const size_t jump_distance, const siz
 
 void player_handle_key(player_t* player, char key)
 {
+    if (player->last_key_pressed == key) return;
+
     switch (key)
     {
         case PLAYER_KEY_JUMP:
@@ -45,6 +47,7 @@ void player_handle_key(player_t* player, char key)
             break;
     }
 
+    player->last_key_pressed = key;
 }
 
 

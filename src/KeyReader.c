@@ -60,6 +60,10 @@ void key_reader_poll(key_reader_t* key_reader)
         read(fileno(stdin), &pressed_char, sizeof(pressed_char));
         key_reader->function_to_execute(pressed_char, key_reader->function_arguments);
     }
+    else if (read_response == 0)
+    {
+        key_reader->function_to_execute(0, key_reader->function_arguments);
+    }
     else if (read_response < 0)
     {
         //Error while reding data

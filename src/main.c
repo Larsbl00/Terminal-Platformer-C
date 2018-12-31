@@ -24,8 +24,9 @@ int main(int argc, char const *argv[])
         rectangle_create(12, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(24, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(0, game_height - 13, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(70, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
     };
-    size_t floor_count = (sizeof(floors) / sizeof(*floors));
+    const size_t floor_count = (sizeof(floors) / sizeof(*floors));
     level_t level = level_create(game->window.width, game->window.height, floors, floor_count);
     level_draw_parameter_t level_param = {&game->player, &level, &game->window};
 
@@ -38,11 +39,21 @@ int main(int argc, char const *argv[])
     }
 
 
+    //Print results
+    printf("\n\n----------------\n\n Game Over!\n ");
+    if (game->game_status & GAME_STATUS_GAME_WON)
+    {
+        printf("You won!\n");
+    }
+    else 
+    {
+        printf("You lost\n");
+    }
+    printf("\n----------------\n");
+
     //Clean
     game_destroy(game);
     free(game);
-
-    printf("\n\n----------------\n\n Game Over !\n\n----------------\n");
 
     return 0;
 }
