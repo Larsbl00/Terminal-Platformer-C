@@ -99,6 +99,8 @@ void game_update(game_t* game)
         //Read pressed key
         key_reader_poll(&game->input_reader);
 
+        player_handle_movement(&game->player);
+
         //Update player
         level_update_player(game->level, &game->player);
     

@@ -27,11 +27,20 @@ player_t player_create(size_t x, size_t y, const size_t jump_distance, const siz
 
 void player_handle_key(player_t* player, char key)
 {
+    player->pressed_key = key;
+}
 
-    switch (key)
+
+void player_handle_movement(player_t* player)
+{
+    switch (player->pressed_key)
     {
         case PLAYER_KEY_JUMP:
-            player_move(player, player->x, player->y - player->jump_distance);
+            if (TIME_SECONDS - player->time_pressed_jump > PLAYER_JUMP_DELAY_SECONDS)
+            {
+                player_move(player, player->x, player->y - player->jump_distance);
+                player->time_pressed_jump = TIME_SECONDS;
+            }
             break;
         
         case PLAYER_KEY_MOVE_LEFT:
@@ -47,7 +56,6 @@ void player_handle_key(player_t* player, char key)
     }
 
 }
-
 
 void player_draw(void* parameters)
 {

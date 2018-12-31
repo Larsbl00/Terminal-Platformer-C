@@ -13,11 +13,14 @@
 #define PLAYER_H
 
 #include <stdint.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "Renderer.h"
 #include "RenderWindow.h"
 #include "Rectangle.h"
+
+#define PLAYER_JUMP_DELAY_SECONDS (0.5)
 
 #define PLAYER_KEY_JUMP (' ')
 #define PLAYER_KEY_MOVE_LEFT ('d')
@@ -25,6 +28,8 @@
 
 #define PLAYER_SIZE_HEIGHT (0x03)
 #define PLAYER_SIZE_WIDTH (0x05)
+
+#define TIME_SECONDS ((double) clock()/CLOCKS_PER_SEC)
 
 const static char player_model[PLAYER_SIZE_HEIGHT][PLAYER_SIZE_WIDTH] = {
     {'(', 'O', '-', 'O', ')'},
@@ -37,7 +42,9 @@ typedef struct player
     const size_t jump_distance;
     const size_t move_distance;
     rectangle_t hit_box;
+    char pressed_key;
     renderer_t renderer;
+    double time_pressed_jump;
     size_t x;
     size_t y;
 } player_t;
@@ -67,6 +74,15 @@ player_t player_create(size_t x, size_t y, const size_t jump_distance, const siz
  * @pre player may not be NULL
  */
 void player_handle_key(player_t* player, char key);
+
+/**
+ * @brief Moves the player
+ * 
+ * @param player 
+ * 
+ * @pre player may not be NULL
+ */
+void player_handle_movement(player_t* player);
 
 /**
  * @brief Draws the player, and is made compateable with the renderers draw function
