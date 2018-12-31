@@ -14,7 +14,8 @@ SOURCES = \
 	$(SRC_DIR)/RenderWindow.c \
 	$(SRC_DIR)/Rectangle.c \
 	$(SRC_DIR)/Player.c \
-	$(SRC_DIR)/Level.c
+	$(SRC_DIR)/Level.c \
+	$(SRC_DIR)/Game.c
 
 #Create .o files in the obj folder for every file
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:.c=.o)))
