@@ -24,31 +24,35 @@
 
 #define GAME_PLAYER_JUMP_DISTANCE (2)
 #define GAME_PLAYER_MOVE_DISTANCE (1)
-#define GAME_REFRESH_DELAY_SECONDS (0.01)
-#define TIME_SECONDS (clock()/CLOCKS_PER_SEC)
+#define GAME_REFRESH_DELAY_SECONDS (0.05)
+#define TIME_SECONDS ((double) clock()/CLOCKS_PER_SEC)
+
+#define GAME_STATUS_GAME_ACTIVE (0x02)
+#define GAME_STATUS_GAME_WON (0x04)
+#define GAME_STATUS_GRAVITY_ACTIVE (0x01)
 
 typedef struct game
 {
-    uint8_t gravity_is_active;
+    uint8_t game_status;
     key_reader_t input_reader;
     level_t* level;
     level_draw_parameter_t* level_draw_parameter;
     player_t player;
     player_draw_parameter_t player_draw_parameter;
     render_queue_t render_queue;
-    clock_t time_last_frame;
+    double time_last_frame;
     render_window_t window;
 } game_t;
 
 /**
  * @brief Creates a game
  * 
- * @param render_queue_size 
+ * @param render_queue_size
+ * @param window_width  
  * @param window_height 
- * @param window_width 
  * @return game_t 
  */
-game_t* game_create(const size_t render_queue_size, const size_t window_height, const size_t window_width);
+game_t* game_create(const size_t render_queue_size, const size_t window_width, const size_t window_height);
 
 /**
  * @brief Destroys the game and clean up the memory

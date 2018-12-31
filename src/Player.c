@@ -30,15 +30,15 @@ void player_handle_key(player_t* player, char key)
     switch (key)
     {
         case PLAYER_KEY_JUMP:
-            player_move(player, 0, -player->jump_distance);
+            player_move(player, player->x, player->y - player->jump_distance);
             break;
         
         case PLAYER_KEY_MOVE_LEFT:
-            player_move(player, -player->move_distance, 0);
+            player_move(player, player->x + player->move_distance, player->y);
             break;
 
         case PLAYER_KEY_MOVE_RIGHT:
-            player_move(player, -player->move_distance, 0);
+            player_move(player, player->x - player->move_distance, player->y);
             break;
 
         default:

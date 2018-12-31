@@ -74,31 +74,35 @@ void rectangle_draw(void* parameter)
     {
         for (size_t x = rect->x; x < (rect->x + rect->width); x++)
         {   
-            //Check if there is a top
-            if ((rect->properties & RECTANGLE_PROPERTY_BORDER_TOP) &&  (y == rect->y))
+            //Check if there is room for object to be rendered
+            if (window->buffer[y][x] == RENDER_WINDOW_EMPTY_CHAR)
             {
-                render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
-            }
-            //Check if there is a bottom
-            else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_BOTTOM) && (y == (rect->y + rect->height) - 1))
-            {
-                render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
-            }
-            //Check if it there is a left side
-            else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_LEFT) && (x == rect->x))
-            {
-                render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);
-            }
-            //Check if there is a right side
-            else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_RIGHT) && (x == (rect->x + rect->width) - 1))
-            {
-                render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);
-            }
-            else 
-            {
-                if ((rect->properties & RECTANGLE_PROPERTY_IS_FILLED))
+                //Check if there is a top
+                if ((rect->properties & RECTANGLE_PROPERTY_BORDER_TOP) &&  (y == rect->y))
                 {
-                    render_window_set(window, x, y, RECTANGLE_CHAR_FILLED);
+                    render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
+                }
+                //Check if there is a bottom
+                else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_BOTTOM) && (y == (rect->y + rect->height) - 1))
+                {
+                    render_window_set(window, x, y, RECTANGLE_CHAR_HORIZONTAL_LINE);
+                }
+                //Check if it there is a left side
+                else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_LEFT) && (x == rect->x))
+                {
+                    render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);
+                }
+                //Check if there is a right side
+                else if ((rect->properties & RECTANGLE_PROPERTY_BORDER_RIGHT) && (x == (rect->x + rect->width) - 1))
+                {
+                    render_window_set(window, x, y, RECTANGLE_CHAR_VERTICAL_LINE);
+                }
+                else 
+                {
+                    if ((rect->properties & RECTANGLE_PROPERTY_IS_FILLED))
+                    {
+                        render_window_set(window, x, y, RECTANGLE_CHAR_FILLED);
+                    }
                 }
             }
         } 

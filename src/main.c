@@ -13,16 +13,17 @@ int main(int argc, char const *argv[])
     //Create a window with the current size of the temrinal
     struct winsize terminal;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
+    const size_t game_height = terminal.ws_row;
+    const size_t game_width = terminal.ws_col;
 
-    game_t* game = game_create(10, terminal.ws_row, terminal.ws_col);
-
+    game_t* game = game_create(10, game_width, game_height);
 
 
     rectangle_t floors[] = {
-        rectangle_create(0, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(12, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(73, 22, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(0, 15, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(12, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(24, game_height - 3, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, game_height - 13, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
     };
     size_t floor_count = (sizeof(floors) / sizeof(*floors));
     level_t level = level_create(game->window.width, game->window.height, floors, floor_count);
@@ -30,13 +31,18 @@ int main(int argc, char const *argv[])
 
     game_load_level(game, &level, &level_param);
 
-    while (is_running)
+
+    while (game->game_status & GAME_STATUS_GAME_ACTIVE)
     {
         game_update(game);
     }
 
+
     //Clean
     game_destroy(game);
+    free(game);
+
+    printf("\n\n----------------\n\n Game Over !\n\n----------------\n");
 
     return 0;
 }

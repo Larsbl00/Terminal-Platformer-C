@@ -11,11 +11,11 @@
 
 #include "Game.h"
 
-game_t* game_create(const size_t render_queue_size, const size_t window_height, const size_t window_width)
+game_t* game_create(const size_t render_queue_size, const size_t window_width, const size_t window_height)
 {
     //Init the game
     game_t game = {
-        .gravity_is_active = 0,
+        .game_status = GAME_STATUS_GAME_ACTIVE,
         .level = NULL,
         .level_draw_parameter = NULL,
         .player = player_create(0, 0, GAME_PLAYER_JUMP_DISTANCE, GAME_PLAYER_MOVE_DISTANCE),
@@ -56,7 +56,7 @@ void game_load_level(game_t* game, level_t* level, level_draw_parameter_t* level
     game->level = level;
     game->level_draw_parameter = level_draw_parameter;
 
-    game->gravity_is_active = 1;
+    game->game_status |= GAME_STATUS_GRAVITY_ACTIVE;
 
     //Add them to the render queue
     render_queue_add_item(&game->render_queue, &game->level->renderer, game->level_draw_parameter);
@@ -67,6 +67,7 @@ void game_handle_input(char character, void* parameters)
     game_t* game = (game_t*) parameters;
 
     player_handle_key(&game->player, character);
+    printf("Pressed: %c. Player located at (%li, %li)\n", character, game->player.x, game->player.y);
 }
 
 void game_unload_current_level(game_t* game)
@@ -77,7 +78,7 @@ void game_unload_current_level(game_t* game)
         printf("Unload succesfull\n");
         game->level = NULL;
         game->level_draw_parameter = NULL;
-        game->gravity_is_active = 0;
+        game->game_status &= ~GAME_STATUS_GRAVITY_ACTIVE;
     }
     else 
     {
@@ -87,14 +88,26 @@ void game_unload_current_level(game_t* game)
 
 void game_update(game_t* game)
 {    
+
     if (TIME_SECONDS - game->time_last_frame > GAME_REFRESH_DELAY_SECONDS)
     {
+
         //Clear current window 
         render_window_flush(&game->window);
 
-        //Execute funtions
-        level_update_player(game->level, &game->player);
+        size_t old_player_x = game->player.x;
 
+        //Update player
+        level_update_player(game->level, &game->player);
+        //Player moved faster than possible, so the game will be ended 
+        if (old_player_x - game->player.x > game->player.move_distance)
+        {
+            game->game_status &= ~GAME_STATUS_GRAVITY_ACTIVE; 
+        }
+    
+
+        //Read pressed key
+        key_reader_poll(&game->input_reader);
 
         //Render all objects
         render_queue_render(&game->render_queue);

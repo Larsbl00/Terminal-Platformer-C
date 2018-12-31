@@ -65,18 +65,12 @@ void level_update_player(level_t* level, player_t* player)
                 //Correct player when they try to go through the bottom
                 if (player->hit_box.y < (pfloor->y + pfloor->height))
                 {
-                    printf("Player hits bottom\n");
                     player_move(player, 0, ((pfloor->y - pfloor->height)) + 1);
                 }
                 //Check if the player is about to fall through the floor
                 else if ((player->hit_box.y + player->hit_box.height) > pfloor->y)
                 {
-                    printf("Player hits top\n");
                     player_move(player, 0, pfloor->y - player->hit_box.height + 1);
-                }
-                else 
-                {
-                    printf("No Collision with floor\n");
                 }
             }
         }
