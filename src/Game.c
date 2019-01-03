@@ -73,7 +73,7 @@ void game_unload_current_level(game_t* game)
     if (game == NULL || game->level == NULL) return;
     if (render_queue_remove_item(&game->render_queue, &game->level->renderer) == 0)
     {
-        printf("Unload succesfull\n");
+        printf("Level Unloaded\n");
         game->level = NULL;
         game->level_draw_parameter = NULL;
         game->game_status &= ~GAME_STATUS_GRAVITY_ACTIVE;

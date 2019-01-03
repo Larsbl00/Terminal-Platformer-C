@@ -73,7 +73,6 @@ void level_update_player(level_t* level, player_t* player)
                     (phit_box->y > pfloor->y) && (phit_box->y <= (pfloor->y + pfloor->height))
                 )
                 {
-                    printf("Hit roof\n");
                     //Move back to the bottom of the rect
                     player_move(player, player->x, (pfloor->y + pfloor->height));
                 }
@@ -82,7 +81,6 @@ void level_update_player(level_t* level, player_t* player)
                     ((phit_box->y + phit_box->height) > pfloor->y) && ((phit_box->y + phit_box->height) <= (pfloor->y + pfloor->height))
                 )
                 {
-                    printf("Hit floor\n");
                     //Move back to the top of the rect
                     player_move(player, player->x, (pfloor->y - phit_box->height) + 1);
                 }
