@@ -68,6 +68,30 @@ void game_handle_input(char character, void* parameters)
     player_handle_key(&game->player, character);
 }
 
+void game_handle_player_render_zone(game_t* game)
+{
+    //Check if the player is leaving the field horizontally
+    if (game->player.x < (game->window.x))
+    {
+        render_window_move(&game->window, game->player.x + game->window.width, game->window.y);
+    }
+    else if ((game->player.x + game->player.hit_box.width) > (game->window.x + game->window.width))
+    {
+        render_window_move(&game->window, game->player.x, game->window.y);
+    }
+
+    //Check if the player is leaving via the bottom
+    else if (game->player.y > (game->window.y + game->window.height))
+    {
+        render_window_move(&game->window, game->window.x, game->player.y);
+    }
+    else if ((game->player.y + game->player.hit_box.height) < game->window.y)
+    {
+        render_window_move(&game->window, game->window.x, (game->player.y + game->player.hit_box.height));
+    }
+
+}
+
 void game_unload_current_level(game_t* game)
 {
     if (game == NULL || game->level == NULL) return;
@@ -123,20 +147,7 @@ void game_update(game_t* game)
             game->game_status &= ~GAME_STATUS_GAME_WON;
         }
 
-        //Check if the player is leaving the field horizontally
-        if (game->player.x + game->player.hit_box.width > (game->window.x + game->window.width))
-        {
-            game->window.x = game->player.x;
-        }
-        //Check if the player is leaving via the bottom
-        else if (game->player.y + game->player.hit_box.height > (game->window.y))
-        {
-            game->window.y = game->player.y;
-        }
-        else if (game->player.y <= game->window.y)
-        {
-            game->window.y = game->window.y;
-        }
+        game_handle_player_render_zone(game);
 
         //Render all objects
         render_queue_render(&game->render_queue);

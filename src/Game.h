@@ -80,6 +80,13 @@ void game_load_level(game_t* game, level_t* level, level_draw_parameter_t* level
 void game_handle_input(char character, void* parameters);
 
 /**
+ * @brief Moves the camera in such a way that the player can always be seen
+ * 
+ * @param game 
+ */
+void game_handle_player_render_zone(game_t* game);
+
+/**
  * @brief Unloads a level if there is one loaded
  * 
  * @param game 

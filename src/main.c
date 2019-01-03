@@ -24,6 +24,9 @@ int main(int argc, char const *argv[])
 
     ///////////////////////////////////
     //Create level
+    const size_t level_height = 2 * window_height;
+    const size_t level_width = 2 * window_width;
+
     rectangle_t floors[] = {
         //Bottom Line
         rectangle_create(0, window_height - 1, window_width - 1, 1, RECTANGLE_PROPERTY_BORDER_TOP),
@@ -37,13 +40,21 @@ int main(int argc, char const *argv[])
         rectangle_create(0, window_height - 15, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, window_height - 8, 10, 8, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(30, window_height - 13, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(0, window_height - 13, 100, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, window_height - 17, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, window_height - 23, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED), 
         rectangle_create(60, window_height - 7, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-
+        rectangle_create(70, window_height - 7, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        
+        //Rectangles below the level
+        rectangle_create(0, window_height + 5, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(5, window_height + 6, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        //Rectangles next to the level
+        rectangle_create(window_width + 5, window_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(window_width + 15, window_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
     };
     const size_t floor_count = (sizeof(floors) / sizeof(*floors));
-    level_t level = level_create(game->window.width * 2, game->window.height * 2, floors, floor_count);
+    level_t level = level_create(level_width, level_height, floors, floor_count);
     level_draw_parameter_t level_param = {&game->player, &level, &game->window};
     ///////////////////////////////////
     

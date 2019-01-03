@@ -37,21 +37,24 @@ void level_draw(void* parameters)
     {
         rectangle_t* pfloor = &level->floors[i];
 
-        //Check if the item ate the utmost right needs to be present
+        //Check if the item needs to be visabe for the player
         if (
-            (player->hit_box.x + player->hit_box.width) + (window->width * LEVEL_RENDER_DISTANCE_FACTOR) > pfloor->x &&
-            (player->hit_box.x - (window->width * LEVEL_RENDER_DISTANCE_FACTOR)) < (pfloor->x + pfloor->width)
+            (player->hit_box.x + player->hit_box.width) + ((window->x + window->width)* LEVEL_RENDER_DISTANCE_FACTOR) > pfloor->x &&
+            (player->hit_box.x - ((window->x + window->width) * LEVEL_RENDER_DISTANCE_FACTOR)) < (pfloor->x + pfloor->width)
         )
         {
-            rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){pfloor, window};
-            rectangle_draw(&rect_param);
+            //Check if the rectangle should be drawn
+            if (pfloor->x < (window->x + window->width) && pfloor->y < (window->y + window->height))
+            {
+                rectangle_draw_parameter_t rect_param = (rectangle_draw_parameter_t){pfloor, window};
+                rectangle_draw(&rect_param);
+            }
         }
     }
 }
 
 void level_update_player(level_t* level, player_t* player)
 {
-    printf("Player: (%li, %li)\n", player->x, player->y);
     //Check each floor to see if the player is near the floor. 
     for (size_t i = 0; i < level->floor_count; i ++)
     {

@@ -72,9 +72,9 @@ void render_window_flush(render_window_t* window)
 void render_window_render(render_window_t* window)
 {
     char new_line = RENDER_WINDOW_NEW_LINE;
-    for (size_t y = window->y; y < (window->y + window->height); y++)
+    for (size_t y = 0; y < (window->height); y++)
     {
-        for (size_t x = window->x; x < (window->x + window->width); x++)
+        for (size_t x = 0; x < (window->width); x++)
         {
             char* character = &window->buffer[y][x];
             write(fileno(stdout), character, sizeof(*character));
@@ -86,8 +86,15 @@ void render_window_render(render_window_t* window)
 void render_window_set(render_window_t* window, const size_t x, const size_t y, char value)
 {
     //Early exit if out of bounds
-    if (x >= window->width || y >= window->height) return;
-
-    //Set y first because we render from top left to bottom right
-    window->buffer[y][x] = value;
+    if (
+        x >= window->x &&
+        x < window->x + window->width && 
+        y >= window->y &&
+        y < window->y + window->height
+    )
+    {
+        //Set y first because we render from top left to bottom right
+        window->buffer[y % window->height][x % window->width] = value;
+        printf("Setting (%li, %li) to %c\n", y % window->height, x % window->width, value);
+    }
 }
