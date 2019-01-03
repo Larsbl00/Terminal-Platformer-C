@@ -22,6 +22,7 @@
 #include <string.h>
 #include <time.h>
 
+#define GAME_PLAYER_FALL_DELAY (0.1)
 #define GAME_PLAYER_FALL_DISTANCE (1)
 #define GAME_PLAYER_JUMP_DISTANCE (8)
 #define GAME_PLAYER_MOVE_DISTANCE (3)
@@ -42,6 +43,7 @@ typedef struct game
     player_draw_parameter_t player_draw_parameter;
     render_queue_t render_queue;
     double time_last_frame;
+    double time_last_gravity;
     render_window_t window;
 } game_t;
 

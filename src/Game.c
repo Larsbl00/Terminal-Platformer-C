@@ -83,14 +83,11 @@ void game_handle_player_render_zone(game_t* game)
     //Check if the player is leaving via the bottom
     else if (game->player.y > (game->window.y + game->window.height))
     {
-        printf("Falling through\n");
         render_window_move(&game->window, game->window.x, game->player.y);
 
-        printf("window: (%li, %li)\n", game->window.x, game->window.y);
     }
     else if ((game->player.y + game->player.hit_box.height) <= game->window.y)
     {
-        printf("Jumping through\n");
         render_window_move(&game->window, game->window.x, (game->player.y + game->player.hit_box.height));
     }
 
@@ -114,15 +111,16 @@ void game_unload_current_level(game_t* game)
 
 void game_update(game_t* game)
 {    
+    //Let the gravity do his thing
+    game_update_gravity(game);
+
+    //Make sure the player is always in sight
+    game_handle_player_render_zone(game);
 
     if (TIME_SECONDS - game->time_last_frame > GAME_REFRESH_DELAY_SECONDS)
     {
         //Clear current window 
         render_window_flush(&game->window);
-
-
-        //Let the gravity do his thing
-        game_update_gravity(game);
 
         //Read pressed key
         key_reader_poll(&game->input_reader);
@@ -163,7 +161,11 @@ void game_update(game_t* game)
 
 void game_update_gravity(game_t* game)
 {
-    player_t* player = &game->player;
-    player_move(player, player->x, player->y + GAME_PLAYER_FALL_DISTANCE);
-    game_handle_player_render_zone(game);
+    if (TIME_SECONDS - game->time_last_gravity >= GAME_PLAYER_FALL_DELAY)
+    {
+        player_t* player = &game->player;
+        player_move(player, player->x, player->y + GAME_PLAYER_FALL_DISTANCE);
+
+        game->time_last_gravity = TIME_SECONDS;
+    }
 }
