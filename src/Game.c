@@ -83,11 +83,11 @@ void game_handle_player_render_zone(game_t* game)
     //Check if the player is leaving via the bottom
     else if ((game->player.y + game->player.hit_box.height) >= (game->window.y + game->window.height))
     {
-        render_window_move(&game->window, game->window.x, game->player.y);
+        render_window_move(&game->window, game->window.x, game->player.y - (0.5 * game->window.height));
     }
     else if ((game->player.y) < game->window.y)
     {
-        render_window_move(&game->window, game->window.x, (game->player.y - game->window.height));
+        render_window_move(&game->window, game->window.x, (game->player.y - game->window.height / 2));
     }
 
 }

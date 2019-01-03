@@ -24,8 +24,8 @@ int main(int argc, char const *argv[])
 
     ///////////////////////////////////
     //Create level
-    const size_t level_height = 1.5 * window_height;
-    const size_t level_width = 1.5 * window_width;
+    const size_t level_height = 2 * window_height;
+    const size_t level_width = 2 * window_width;
 
     rectangle_t floors[] = {
         //Bottom Line
@@ -38,10 +38,20 @@ int main(int argc, char const *argv[])
         //All values are not defined here in any way and are prone to throwing seg faults, becuase, I'm too lazy to create a function
         //for creating levels. 
         rectangle_create(0, level_height - 10, 10, 8, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(15, level_height - 14, 7, 10, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(15, level_height - 14, 7, 12, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(20, level_height - 18, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(45, level_height - 18, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(65, level_height - 14, 10, 10, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED)
+        rectangle_create(65, level_height - 14, 10, 12, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(80, level_height - 10, 10, 8, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(95, level_height - 15, 5, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(85, level_height - 21, 5, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(100, level_height - 25, 5, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(112, level_height - 25, 8, 25, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(112, level_height - 20, 18, 20, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(135, level_height - 15, 15, 15, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        
+        //Finish
+        rectangle_create(level_width - 3, level_height - 30, 3, level_height, RECTANGLE_PROPERTY_BORDER_FULL)
     };
     const size_t floor_count = (sizeof(floors) / sizeof(*floors));
     level_t level = level_create(level_width, level_height, floors, floor_count);
