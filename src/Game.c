@@ -73,9 +73,9 @@ void game_handle_player_render_zone(game_t* game)
     //Check if the player is leaving the field horizontally
     if (game->player.x < (game->window.x))
     {
-        render_window_move(&game->window, game->player.x + game->window.width, game->window.y);
+        render_window_move(&game->window, game->window.width - (game->player.x + game->player.hit_box.width), game->window.y);
     }
-    else if ((game->player.x + game->player.hit_box.width) > (game->window.x + game->window.width))
+    else if ((game->player.x + game->player.hit_box.width) >= (game->window.x + game->window.width))
     {
         render_window_move(&game->window, game->player.x, game->window.y);
     }

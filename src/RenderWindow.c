@@ -94,7 +94,6 @@ void render_window_set(render_window_t* window, const size_t x, const size_t y, 
     )
     {
         //Set y first because we render from top left to bottom right
-        window->buffer[y % window->height][x % window->width] = value;
-        printf("Setting (%li, %li) to %c\n", y % window->height, x % window->width, value);
+        window->buffer[y - window->y][x - window->x] = value;
     }
 }
