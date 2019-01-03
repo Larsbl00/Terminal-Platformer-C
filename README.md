@@ -15,4 +15,4 @@ This game is developed in a linux environment, and as of now I do not feel like 
 This is a rather simple platformer, move from the start to end. These, per default, are the right and left side respectively.
 
 ## Video
-[![https://www.youtube.com/watch?v=twiWRjDgF8Q&]]
+[![](https://i.ytimg.com/vi/twiWRjDgF8Q/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLC9jYrGGpQTaVtl53Ksey9SmHS5gw)](https://www.youtube.com/watch?v=twiWRjDgF8Q&t=0s)
