@@ -60,8 +60,6 @@ void level_update_player(level_t* level, player_t* player)
         //Check if the floor has collision enabled
         if (pfloor->properties & RECTANGLE_PROPERTY_IS_COLLIDABLE)
         {
-            //size_t player_right_x = player->hit_box.x + player->hit_box.width;
-
             //Player is present in the domain of the rectangle 
             if (
                 (phit_box->x >= pfloor->x && phit_box->x < (pfloor->x + pfloor->width)) ||

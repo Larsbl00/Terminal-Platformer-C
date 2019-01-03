@@ -17,26 +17,39 @@ int main(int argc, char const *argv[])
     //Create a window with the current size of the temrinal
     struct winsize terminal;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
-    const size_t game_height = terminal.ws_row;
-    const size_t game_width = terminal.ws_col;
+    const size_t window_height = terminal.ws_row;
+    const size_t window_width = terminal.ws_col;
 
-    game_t* game = game_create(10, game_width, game_height);
+    game_t* game = game_create(10, window_width, window_height);
 
-
+    ///////////////////////////////////
+    //Create level
     rectangle_t floors[] = {
-        rectangle_create(0, game_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(12, game_height - 5, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(24, game_height - 5, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(0, game_height - 20, 10, 3, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(70, game_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        //Bottom Line
+        rectangle_create(0, window_height - 1, window_width - 1, 1, RECTANGLE_PROPERTY_BORDER_TOP),
+
+        //Top line
+        rectangle_create(0, 1, window_width - 1, 1, RECTANGLE_PROPERTY_BORDER_BOTTOM | RECTANGLE_PROPERTY_IS_COLLIDABLE),
+
+
+        //Platforms
+        rectangle_create(0, window_height - 5, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(16, window_height - 8, 10, 8, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(30, window_height - 13, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(16, window_height - 17, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(16, window_height - 23, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED), 
+        rectangle_create(60, window_height - 7, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+
     };
     const size_t floor_count = (sizeof(floors) / sizeof(*floors));
-    level_t level = level_create(game->window.width, game->window.height, floors, floor_count);
+    level_t level = level_create(game->window.width * 2, game->window.height * 2, floors, floor_count);
     level_draw_parameter_t level_param = {&game->player, &level, &game->window};
-
+    ///////////////////////////////////
+    
+    //Load the created level
     game_load_level(game, &level, &level_param);
 
-
+    //Play the game
     while (game->game_status & GAME_STATUS_GAME_ACTIVE)
     {
         game_update(game);
@@ -60,7 +73,7 @@ int main(int argc, char const *argv[])
     free(game);
 
     //Wait a second so you don't directly type in the terminal
-    usleep(SECONDS_TO_MICROS(1));
+    usleep(SECONDS_TO_MICROS(1.2));
 
     return 0;
 }
