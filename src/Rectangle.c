@@ -76,7 +76,7 @@ void rectangle_draw(void* parameter)
         for (size_t x = rect->x; x < (rect->x + rect->width); x++)
         {   
             //Check if there is room for object to be rendered
-            if (window->buffer[y][x] == RENDER_WINDOW_EMPTY_CHAR)
+            if (window->buffer[y - window->y][x - window->x] == RENDER_WINDOW_EMPTY_CHAR)
             {
                 //Check if there is a top
                 if ((rect->properties & RECTANGLE_PROPERTY_BORDER_TOP) &&  (y == rect->y))
