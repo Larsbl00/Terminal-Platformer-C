@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
     ioctl(STDIN_FILENO, TIOCGWINSZ, &terminal);
     const size_t window_height = terminal.ws_row;
     const size_t window_width = terminal.ws_col;
-
+ 
     game_t* game = game_create(10, window_width, window_height);
 
     ///////////////////////////////////
@@ -37,8 +37,8 @@ int main(int argc, char const *argv[])
         //Platforms
         rectangle_create(0, 40, 10, 5, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, 40, 10, 8, RECTANGLE_PROPERTY_BORDER_FULL | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(30, 40, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
-        rectangle_create(38, 40, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(30, 30, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
+        rectangle_create(38, 30, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(0, 40, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, 30, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED),
         rectangle_create(16, 20, 10, 2, RECTANGLE_PROPERTY_BORDER_TOP | RECTANGLE_PROPERTY_IS_COLLIDABLE | RECTANGLE_PROPERTY_IS_FILLED), 

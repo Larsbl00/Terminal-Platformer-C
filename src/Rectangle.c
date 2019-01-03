@@ -72,9 +72,9 @@ void rectangle_draw(void* parameter)
 
 
     //Set all x values
-    for (size_t y = rect->y; y < (rect->y + rect->height) && y >= window->y; y++)
+    for (size_t y = rect->y; y < (rect->y + rect->height) && y >= window->y && y < (window->y + window->height); y++)
     {
-        for (size_t x = rect->x; x < (rect->x + rect->width) && x >= window->x; x++)
+        for (size_t x = rect->x; x < (rect->x + rect->width) && x >= window->x && x < (window->x + window->width); x++)
         {   
             //Check if there is room for object to be rendered
             //@todo: Make sure there is now seg fault, when the y < window->y
