@@ -52,7 +52,7 @@ void render_window_destroy(render_window_t* window)
     free(window->buffer);
 }
 
-render_window_move(render_window_t* window, size_t new_x, size_t new_y)
+void render_window_move(render_window_t* window, size_t new_x, size_t new_y)
 {
     window->x = new_x;
     window->y = new_y;
@@ -72,9 +72,9 @@ void render_window_flush(render_window_t* window)
 void render_window_render(render_window_t* window)
 {
     char new_line = RENDER_WINDOW_NEW_LINE;
-    for (size_t y = window->y; y < window->height; y++)
+    for (size_t y = window->y; y < (window->y + window->height); y++)
     {
-        for (size_t x = window->x; x < window->width; x++)
+        for (size_t x = window->x; x < (window->x + window->width); x++)
         {
             char* character = &window->buffer[y][x];
             write(fileno(stdout), character, sizeof(*character));
