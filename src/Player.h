@@ -20,7 +20,7 @@
 #include "RenderWindow.h"
 #include "Rectangle.h"
 
-#define PLAYER_JUMP_DELAY_SECONDS (0.5)
+#define PLAYER_JUMP_DELAY_SECONDS (0.7)
 
 #define PLAYER_KEY_JUMP (' ')
 #define PLAYER_KEY_MOVE_LEFT ('d')
