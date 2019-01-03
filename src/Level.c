@@ -51,6 +51,7 @@ void level_draw(void* parameters)
 
 void level_update_player(level_t* level, player_t* player)
 {
+    printf("Player: (%li, %li)\n", player->x, player->y);
     //Check each floor to see if the player is near the floor. 
     for (size_t i = 0; i < level->floor_count; i ++)
     {

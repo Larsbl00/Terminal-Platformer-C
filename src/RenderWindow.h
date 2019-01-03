@@ -24,6 +24,8 @@ typedef struct render_window
     const size_t height;
     const size_t width;
     char** buffer;
+    size_t x;
+    size_t y;
 } render_window_t;
 
 /**
@@ -43,6 +45,15 @@ render_window_t render_window_create(const size_t height, const size_t width);
  * @pre window may not be NULL 
  */
 void render_window_destroy(render_window_t* window);
+
+/**
+ * @brief Moves the window to the new x and y
+ * 
+ * @param window 
+ * @param new_x 
+ * @param new_y 
+ */
+void render_window_move(render_window_t* window, size_t new_x, size_t new_y);
 
 /**
  * @brief Flushes all data currently stored in the buffer
