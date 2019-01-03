@@ -1,4 +1,5 @@
 #include <sys/ioctl.h>
+#include <unistd.h>
 
 #include "Game.h"
 #include "KeyReader.h"
@@ -7,6 +8,9 @@
 #include "Player.h"
 
 uint8_t is_running = 1;
+
+#define MICROS_PER_SECOND (1000000)
+#define SECONDS_TO_MICROS(SECONDS) (SECONDS * MICROS_PER_SECOND)
 
 int main(int argc, char const *argv[])
 {
@@ -54,6 +58,9 @@ int main(int argc, char const *argv[])
     //Clean
     game_destroy(game);
     free(game);
+
+    //Wait a second so you don't directly type in the terminal
+    usleep(SECONDS_TO_MICROS(1));
 
     return 0;
 }
