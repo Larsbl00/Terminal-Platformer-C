@@ -70,12 +70,14 @@ void rectangle_draw(void* parameter)
     rectangle_t* rect = param->rect;
     render_window_t* window = param->window;
 
+
     //Set all x values
-    for (size_t y = rect->y; y < (rect->y + rect->height); y++)
+    for (size_t y = rect->y; y < (rect->y + rect->height) && y >= window->y; y++)
     {
-        for (size_t x = rect->x; x < (rect->x + rect->width); x++)
+        for (size_t x = rect->x; x < (rect->x + rect->width) && x >= window->x; x++)
         {   
             //Check if there is room for object to be rendered
+            //@todo: Make sure there is now seg fault, when the y < window->y
             if (window->buffer[y - window->y][x - window->x] == RENDER_WINDOW_EMPTY_CHAR)
             {
                 //Check if there is a top

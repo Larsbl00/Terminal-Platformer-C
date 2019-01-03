@@ -83,10 +83,14 @@ void game_handle_player_render_zone(game_t* game)
     //Check if the player is leaving via the bottom
     else if (game->player.y > (game->window.y + game->window.height))
     {
+        printf("Falling through\n");
         render_window_move(&game->window, game->window.x, game->player.y);
+
+        printf("window: (%li, %li)\n", game->window.x, game->window.y);
     }
     else if ((game->player.y + game->player.hit_box.height) <= game->window.y)
     {
+        printf("Jumping through\n");
         render_window_move(&game->window, game->window.x, (game->player.y + game->player.hit_box.height));
     }
 
@@ -147,7 +151,6 @@ void game_update(game_t* game)
             game->game_status &= ~GAME_STATUS_GAME_WON;
         }
 
-        game_handle_player_render_zone(game);
 
         //Render all objects
         render_queue_render(&game->render_queue);
@@ -162,4 +165,5 @@ void game_update_gravity(game_t* game)
 {
     player_t* player = &game->player;
     player_move(player, player->x, player->y + GAME_PLAYER_FALL_DISTANCE);
+    game_handle_player_render_zone(game);
 }
